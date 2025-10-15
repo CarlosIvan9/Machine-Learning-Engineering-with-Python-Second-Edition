@@ -1,3 +1,5 @@
+#This already includes changes to make the deployment work (added health path)
+
 from flask_restful import Resource, reqparse
 from flask import jsonify
 import numpy as np
@@ -42,3 +44,8 @@ class Forecaster(object):
     def forecast(self, params={}, steps=10):
         if self.model is None:
             return np.random.random(steps).tolist()  # as a placeholder for actual forecast
+        
+
+class HealthCheck(Resource):
+    def get(self):
+        return {"status": "healthy"}, 200
